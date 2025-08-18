@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiAmor - Connect, Earn, and Grow</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #050816;
+            --surface-color: #0d1124; /* Darker, bluer surface color */
+            --primary-color: #2962ff;
+            --secondary-color: #00d4ff;
+            --accent-pink: #e73c7e;
+            --text-color: #eaf2ff;
+            --text-muted: #a0a8c2;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 100px 0; position: relative; }
+        .section-title {
+            text-align: center; margin-bottom: 60px; font-size: 2.8rem;
+            font-weight: 700; color: #fff; position: relative;
+        }
+        .section-title span { display: block; font-size: 1rem; font-weight: 400; color: var(--text-muted); margin-top: 10px; }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -15px; left: 50%;
+            transform: translateX(-50%); width: 80px; height: 4px;
+            background: var(--gradient); border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block; padding: 14px 32px;
+            color: #fff; text-decoration: none; border-radius: var(--radius);
+            font-weight: 600; transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;
+            cursor: pointer; background: var(--gradient);
+            background-size: 200% auto;
+        }
+        .btn:hover {
+            background-position: right center;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(41, 98, 255, 0.4);
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 20px 0; z-index: 1000;
+            transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+        }
+        .header.scrolled {
+            background-color: rgba(5, 8, 22, 0.7);
+            padding: 15px 0; backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .navbar { display: flex; align-items: center; }
+        .logo { font-size: 2rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo img { 
+            height: 80px;
+            transition: height 0.3s ease;
+        }
+        .header.scrolled .logo img {
+            height: 40px;
+        }
+        .nav-links { list-style: none; display: flex; margin-left: auto; }
+        .nav-links li { margin-left: 35px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; position: relative; transition: color 0.3s ease; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--gradient); transition: width 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        
+        .header-cta-btn {
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            margin-left: 35px;
+            white-space: nowrap;
+        }
+        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; margin-left: 20px;}
+
+        /* HERO SECTION - Artistic Background Update */
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background-color: var(--bg-color); }
+        .hero-container { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        
+        .hero-aurora-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; z-index: 0;
+        }
+        .aurora-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.3;
+        }
+        .aurora-shape.shape1 {
+            width: 500px; height: 500px;
+            background-color: var(--primary-color);
+            top: -10%; left: -15%;
+            animation: moveAurora1 15s alternate infinite ease-in-out;
+        }
+        .aurora-shape.shape2 {
+            width: 600px; height: 600px;
+            background-color: var(--secondary-color);
+            bottom: -20%; right: -20%;
+            animation: moveAurora2 20s alternate infinite ease-in-out;
+        }
+         .aurora-shape.shape3 {
+            width: 450px; height: 450px;
+            background-color: var(--accent-pink);
+            bottom: 20%; left: 20%;
+            opacity: 0.2;
+            animation: moveAurora3 18s alternate infinite ease-in-out;
+        }
+
+        @keyframes moveAurora1 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { transform: translate(100px, 150px) rotate(45deg) scale(1.1); }
+        }
+        @keyframes moveAurora2 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1.2); }
+            100% { transform: translate(-150px, -100px) rotate(-30deg) scale(1); }
+        }
+        @keyframes moveAurora3 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(0.9); }
+            100% { transform: translate(120px, -180px) rotate(60deg) scale(1.1); }
+        }
+
+        /* --- Floating Particle Icons --- */
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none; overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            bottom: -100px;
+            opacity: 0;
+            animation: floatUp 10s infinite linear;
+        }
+        .particle.fa-dollar-sign {
+            color: var(--secondary-color);
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        .particle.fa-heart {
+            color: var(--accent-pink);
+            text-shadow: 0 0 15px rgba(231, 60, 126, 0.5);
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0; }
+            10%, 90% { opacity: 0.7; }
+            100% { transform: translateY(-120vh); opacity: 0; }
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 15s; font-size: 20px; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 12s; font-size: 30px; }
+        .particle:nth-child(3) { left: 35%; animation-delay: 4s; animation-duration: 18s; font-size: 15px; }
+        .particle:nth-child(4) { left: 50%; animation-delay: 1s; animation-duration: 14s; font-size: 25px; }
+        .particle:nth-child(5) { left: 65%; animation-delay: 3s; animation-duration: 11s; font-size: 22px; }
+        .particle:nth-child(6) { left: 75%; animation-delay: 5s; animation-duration: 16s; font-size: 18px; }
+        .particle:nth-child(7) { left: 90%; animation-delay: 2.5s; animation-duration: 13s; font-size: 28px; }
+        .particle:nth-child(8) { left: 5%; animation-delay: 6s; animation-duration: 17s; font-size: 16px; }
+        .particle:nth-child(9) { left: 25%; animation-delay: 7s; animation-duration: 10s; font-size: 24px; }
+        .particle:nth-child(10) { left: 45%; animation-delay: 8s; animation-duration: 19s; font-size: 20px; }
+        .particle:nth-child(11) { left: 55%; animation-delay: 9s; animation-duration: 12s; font-size: 28px; }
+        .particle:nth-child(12) { left: 85%; animation-delay: 4.5s; animation-duration: 20s; font-size: 14px; }
+
+        .hero-content { flex: 1.2; text-align: left; z-index: 2; }
+        .hero-content h1 { font-size: 3.8rem; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: #fff; }
+        .hero-content h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-muted); max-width: 550px; margin-bottom: 40px; }
+        
+        @keyframes floatPhone {
+            0% { transform: translateY(-12px); }
+            100% { transform: translateY(12px); }
+        }
+
+        .hero-visual {
+            flex: 1; display: flex; justify-content: center; align-items: center; z-index: 2;
+            perspective: 1500px;
+            animation: floatPhone 4s infinite alternate ease-in-out;
+        }
+        .phone-mockup {
+            width: 280px; height: 570px;
+            background: #111; border: 10px solid #000;
+            border-radius: 40px; position: relative;
+            transform: rotateY(-15deg) rotateX(5deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 0 60px rgba(41, 98, 255, 0.35), 0 15px 50px rgba(0,0,0,0.6); /* Enhanced glow */
+        }
+        .phone-mockup:hover {
+            transform: rotateY(0) rotateX(0);
+            box-shadow: 0 0 80px rgba(41, 98, 255, 0.5), 0 15px 50px rgba(0,0,0,0.6); /* Brighter glow on hover */
+        }
+        .phone-screen {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, #101630, #0c1022); /* Gradient BG */
+            border-radius: 30px; padding: 20px 15px 80px; /* Adjusted padding for floating nav */
+            overflow: hidden; display: flex; flex-direction: column;
+            font-family: 'Poppins', sans-serif; font-size: 13px; /* Base font size */
+        }
+        /* --- Polished App UI Styles --- */
+        .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .app-logo { font-size: 1.2rem; font-weight: 700; color: #fff; }
+        .app-logo img { height: 40px; }
+        .app-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-profile-icon { width: 35px; height: 35px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: grid; place-items: center; font-size: 1.1rem; color: var(--text-color); overflow: hidden;}
+        .app-profile-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .app-balance-area {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, rgba(41, 98, 255, 0.2), rgba(0, 212, 255, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 15px;
+        }
+        .app-balance-main p { font-size: 0.8rem; color: var(--text-muted); }
+        .app-balance-main h2 { font-size: 2.2rem; color: #fff; line-height: 1; }
+        .app-balance-main span { font-size: 0.8rem; color: var(--secondary-color); font-weight: 600; }
+        .app-streak { text-align: center; }
+        .app-streak .icon { font-size: 1.6rem; color: #ffab00; }
+        .app-streak span { font-size: 0.7rem; color: var(--text-muted); }
+        .app-pills { display: flex; gap: 8px; margin-bottom: 12px; }
+        .app-pills span {
+            background: rgba(41, 98, 255, 0.2);
+            border: 1px solid rgba(41, 98, 255, 0.4);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .app-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
+        .app-card { background: var(--surface-color); border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 10px; }
+        .app-card-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: grid; place-items: center; font-size: 1.4rem;
+            color: var(--secondary-color); flex-shrink: 0;
+        }
+        .app-card-text p { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; margin: 0; }
+        .app-card-text h4 { font-size: 0.85rem; font-weight: 500; color: #fff; line-height: 1.3; margin: 0;}
+        .app-quick-actions { display: flex; justify-content: space-around; background: transparent; border-radius: 15px; padding: 10px 0; margin-bottom: 15px; }
+        .action-item { text-align: center; }
+        .action-item .icon {
+            width: 45px; height: 45px; background: rgba(41, 98, 255, 0.15);
+            border-radius: 50%; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.3rem; color: var(--secondary-color);
+            margin-bottom: 5px; transition: background-color 0.3s ease;
+        }
+        .action-item:hover .icon { background-color: rgba(41, 98, 255, 0.3); }
+        .action-item p { font-size: 0.7rem; color: var(--text-muted); margin-top: 0; }
+        .app-bottom-nav {
+            position: absolute; bottom: 10px; left: 10px; right: 10px;
+            background: rgba(5,8,22, 0.8); backdrop-filter: blur(8px);
+            padding: 8px 0; display: flex; justify-content: space-around;
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+        }
+        .nav-item { text-align: center; color: var(--text-muted); }
+        .nav-item .icon { font-size: 1.2rem; }
+        .nav-item p { font-size: 0.65rem; }
+        .nav-item.active { color: var(--secondary-color); }
+        .naira-animation-container { position: absolute; top: 25%; left: 50%; width: 100%; height: 100%; transform: translateX(-50%); }
+        .naira-particle { position: absolute; color: #fff; opacity: 0; font-weight: bold; text-shadow: 0 0 5px rgba(0, 212, 255, 0.8); animation: fly-out 3s ease-out infinite; } @keyframes fly-out { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-300px) scale(0) rotate(360deg); opacity: 0; } } .naira-particle:nth-child(1) { font-size: 24px; animation-delay: 0s; left: 40%; } .naira-particle:nth-child(2) { font-size: 18px; animation-delay: 0.3s; left: 60%; } .naira-particle:nth-child(3) { font-size: 28px; animation-delay: 0.6s; left: 30%; }
+
+        /* --- REDESIGNED PRICING SECTION --- */
+        #pricing { background-color: var(--surface-color); }
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Use center instead of stretch for consistent height */
+            gap: 40px;
+            flex-wrap: wrap; /* Allows stacking on smaller screens */
+        }
+        .pricing-card {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(29, 36, 68, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        .pricing-card.ultra {
+            transform: scale(1.05);
+            box-shadow: -5px 0 30px rgba(41, 98, 255, 0.3);
+        }
+        .pricing-card.ultra:hover {
+             box-shadow: -5px 0 40px rgba(41, 98, 255, 0.5);
+             transform: translateY(-10px) scale(1.05);
+        }
+        .pricing-image {
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .pricing-image img {
+            width: 100%;
+            display: block;
+        }
+        .pricing-card-content { flex-grow: 1; } /* Pushes button to bottom */
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .pricing-card .price {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        .pricing-card ul li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+        /* Custom checkmark style */
+        .pricing-card ul li::before {
+            content: '\f00c';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #fff;
+            background: var(--primary-color);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-grid;
+            place-items: center;
+            margin-right: 15px;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .pricing-card .btn {
+            background: var(--primary-color);
+            width: 100%;
+            text-align: center;
+            border-radius: 12px;
+        }
+        .pricing-card .btn:hover {
+            background: var(--secondary-color);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+            transform: translateY(0); /* Override default btn hover */
+        }
+        
+        /* Other Sections */
+        .interactive-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; transition: transform 0.3s ease; }
+        .interactive-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: var(--radius); background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(41, 98, 255, 0.4), transparent 40%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
+        .interactive-card:hover::before { opacity: 1; }
+        .interactive-card:hover { transform: translateY(-5px); }
+        .card-content { position: relative; z-index: 2; }
+        #vision { background-color: var(--surface-color); }
+        .vision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .vision-card { padding: 40px 30px; border-radius: var(--radius); text-align: center; }
+        .vision-card .icon { font-size: 3rem; margin-bottom: 20px; color: var(--secondary-color); }
+        .vision-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
+        .vision-card p { color: var(--text-muted); font-size: 0.95rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .feature-card { border-radius: var(--radius); overflow: hidden; text-align: left; }
+        .feature-image-placeholder { 
+            height: 200px; 
+            background-color: var(--surface-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--text-muted); 
+            font-style: italic; 
+            overflow: hidden;
+        }
+        .feature-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .feature-card:hover .feature-image-placeholder img {
+            transform: scale(1.05);
+        }
+        .feature-content { padding: 30px; }
+        .feature-content h3 { font-size: 1.6rem; font-weight: 600; margin-bottom: 15px; color: #fff; line-height: 1.3; }
+        
+        /* --- Redesigned 'Why Choose Us' Section --- */
+        #services .section-title::after {
+            background: var(--primary-color);
+            width: 60px;
+        }
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+        .why-choose-item {
+            text-align: center;
+        }
+        .why-choose-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #1a203f; /* Darker, more distinct blue */
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+        }
+        .why-choose-icon i {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            transition: color 0.3s ease-in-out;
+        }
+        .why-choose-item:hover .why-choose-icon {
+            background-color: var(--primary-color);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(41, 98, 255, 0.4); /* Enhanced glow */
+        }
+        .why-choose-item:hover .why-choose-icon i {
+            color: #fff;
+        }
+        .why-choose-item h3 {
+            font-size: 1.2rem;
+            font-weight: 700; /* Bolder */
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        .why-choose-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- FAQ SECTION --- */
+        #faq { background-color: var(--surface-color); }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: var(--bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden; /* Important for the max-height transition */
+        }
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .faq-question:hover {
+            background-color: rgba(41, 98, 255, 0.1);
+        }
+        .faq-question i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease-in-out;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+        .faq-answer p {
+            padding: 0 25px 20px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        /* Active State */
+        .faq-item.active .faq-question i {
+            transform: rotate(135deg);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* Adjust if answers are longer */
+        }
+
+        /* --- NEW CTA SECTION --- */
+        #cta-section {
+            padding: 0 20px;
+            margin-top: -50px; /* Overlap previous section slightly */
+            padding-bottom: 60px; /* Space before footer */
+        }
+        .cta-box {
+            background: linear-gradient(100deg, #2962ff, #00d4ff);
+            padding: 70px 40px;
+            border-radius: 30px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(41, 98, 255, 0.3);
+        }
+        .cta-box h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .cta-box p {
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .cta-box .btn {
+            background: #1e52d9;
+            color: #fff;
+            padding: 16px 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255,255,255,0.2);
+            border: none;
+            background-size: auto; /* Override general btn */
+        }
+        .cta-box .btn:hover {
+            background: #2962ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(29, 82, 217, 0.5);
+        }
+
+        /* --- NEW FOOTER SECTION --- */
+        .footer {
+            background-color: var(--bg-color);
+            text-align: center;
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px 30px;
+            margin-bottom: 40px;
+            padding: 0;
+        }
+
+        .footer-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-socials {
+            margin-bottom: 40px;
+        }
+
+        .footer-socials p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--surface-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .footer-contact {
+            margin-bottom: 40px;
+        }
+        .footer-contact p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+         .footer-contact p:last-child {
+            margin-bottom: 0;
+        }
+        .footer-contact a {
+            color: #2962ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-contact a:hover {
+            color: var(--secondary-color);
+        }
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 900px) {
+            .pricing-grid { gap: 30px; }
+            .pricing-card.ultra { transform: scale(1); box-shadow: -5px 0 30px rgba(41, 98, 255, 0.3); }
+        }
+        @media (max-width: 768px) {
+            .hero-container { flex-direction: column; text-align: center; }
+            .hero-content { text-align: center; order: 1; margin-bottom: 0; }
+            .hero-content p { margin-left: auto; margin-right: auto; }
+            .hero-visual { margin-top: 60px; order: 2; z-index: 2; }
+            .phone-mockup { transform: scale(0.9) rotateY(-15deg) rotateX(5deg); }
+            .header-cta-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+                margin-left: auto;
+            }
+            .hamburger { display: block; z-index: 1001; margin-left: 15px; }
+            .nav-links { position: fixed; top: 0; left: -100%; width: 100%; height: 100vh; background-color: rgba(5, 8, 22, 0.95); backdrop-filter: blur(10px); flex-direction: column; justify-content: center; align-items: center; transition: left 0.4s ease-in-out; margin-left: 0;}
+            .nav-links.active { left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header"><nav class="container navbar"><a href="index.html" class="logo"><img src="https://i.ibb.co/67K0XvbH/image.png" alt="MiAmor Logo"></a><ul class="nav-links"><li><a href="index.html#home">Home</a></li><li><a href="index.html#vision">Our Vision</a></li><li><a href="index.html#features">Features</a></li><li><a href="index.html#pricing">Pricing</a></li><li><a href="index.html#services">Services</a></li><li><a href="merchant.html">Merchant</a></li></ul><a href="register.html" class="btn header-cta-btn">Get Started</a><div class="hamburger"><i class="fas fa-bars"></i></div></nav></header>
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-aurora-bg">
+                <div class="aurora-shape shape1"></div>
+                <div class="aurora-shape shape2"></div>
+                <div class="aurora-shape shape3"></div>
+            </div>
+            <div class="hero-particles">
+                <i class="fas fa-dollar-sign particle"></i>
+                <i class="fas fa-heart particle"></i>
+                <i class="fas fa-dollar-sign particle"></i>
+                <i class="fas fa-heart particle"></i>
+                <i class="fas fa-dollar-sign particle"></i>
+                <i class="fas fa-heart particle"></i>
+                <i class="fas fa-dollar-sign particle"></i>
+                <i class="fas fa-heart particle"></i>
+                <i class="fas fa-dollar-sign particle"></i>
+                <i class="fas fa-heart particle"></i>
+                <i class="fas fa-dollar-sign particle"></i>
+                <i class="fas fa-heart particle"></i>
+            </div>
+            <div class="container hero-container">
+                <div class="hero-content" data-aos="fade-right">
+                    <h1>Find Love. <span>Build Skills.</span> Earn Your Future.</h1>
+                    <p>The revolutionary platform combining relationship-building with entrepreneurship. Find love, earn income, and gain valuable skills in a community that empowers you.</p>
+                    <a href="register.html" class="btn">Register Now</a>
+                </div>
+                <div class="hero-visual" data-aos="zoom-in-left">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="app-header">
+                                <div class="app-logo"><img src="https://i.ibb.co/67K0XvbH/image.png" alt="MiAmor Logo"></div>
+                                <div class="app-profile-icon"><i class="fas fa-user"></i></div>
+                            </div>
+                            <div class="app-balance-area">
+                                <div class="app-balance-main">
+                                    <p>Total Revenue</p>
+                                    <h2>₦2,500,000</h2>
+                                    <span>+₦12,500 today</span>
+                                </div>
+                                <div class="app-streak">
+                                    <div class="icon"><i class="fas fa-fire"></i></div>
+                                    <span>121 Days</span>
+                                </div>
+                            </div>
+                            <div class="app-pills">
+                                <span>Revenue Store</span>
+                                <span>Activity Balance</span>
+                            </div>
+                            <div class="app-cards-grid">
+                                <div class="app-card">
+                                    <div class="app-card-icon"><i class="fas fa-chart-pie"></i></div>
+                                    <div class="app-card-text">
+                                        <p>Daily Activities</p>
+                                        <h4>₦120,650.00</h4>
+                                    </div>
+                                </div>
+                                <div class="app-card">
+                                    <div class="app-card-icon"><i class="fas fa-dice-five"></i></div>
+                                    <div class="app-card-text">
+                                        <p>Continue Playing</p>
+                                        <h4>Ludo King</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-quick-actions">
+                                <div class="action-item">
+                                    <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+                                    <p>Withdraw</p>
+                                </div>
+                                <div class="action-item">
+                                    <div class="icon"><i class="fas fa-newspaper"></i></div>
+                                    <p>Articles</p>
+                                </div>
+                                <div class="action-item">
+                                    <div class="icon"><i class="fas fa-chart-line"></i></div>
+                                    <p>Stats</p>
+                                </div>
+                            </div>
+                            <div class="app-bottom-nav">
+                                <div class="nav-item active">
+                                    <div class="icon"><i class="fas fa-home"></i></div>
+                                    <p>Home</p>
+                                </div>
+                                <div class="nav-item">
+                                    <div class="icon"><i class="fas fa-history"></i></div>
+                                    <p>History</p>
+                                </div>
+                                <div class="nav-item">
+                                    <div class="icon"><i class="fas fa-user"></i></div>
+                                    <p>Profile</p>
+                                </div>
+                                <div class="nav-item">
+                                    <div class="icon"><i class="fas fa-trophy"></i></div>
+                                    <p>Zone</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="naira-animation-container">
+                            <div class="naira-particle">₦</div>
+                            <div class="naira-particle">₦</div>
+                            <div class="naira-particle">₦</div>
+                            <div class="naira-particle">₦</div>
+                            <div class="naira-particle">₦</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="vision"><div class="container"><h2 class="section-title" data-aos="fade-up"> The Code Behind The Vision <span>What We Stand For</span> </h2><div class="vision-grid"><div class="vision-card interactive-card" data-aos="fade-up" data-aos-delay="100"><div class="card-content"><div class="icon"><i class="fas fa-hand-holding-dollar"></i></div><h3>Empowerment & Earning</h3><p>We provide tangible opportunities to turn your daily digital activities—from gaming to social media—into real income and company ownership.</p></div></div><div class="vision-card interactive-card" data-aos="fade-up" data-aos-delay="200"><div class="card-content"><div class="icon"><i class="fas fa-heart"></i></div><h3>Meaningful Connections</h3><p>Beyond finance, our core is community. MiAmor is a space to find love, build lasting relationships, and connect with a supportive network.</p></div></div><div class="vision-card interactive-card" data-aos="fade-up" data-aos-delay="300"><div class="card-content"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3>Skill Development</h3><p>We believe in growth. Through creative courses and strategic games, we empower users with valuable skills for the modern world.</p></div></div></div></div></section>
+        <section id="features"><div class="container"><h2 class="section-title" data-aos="fade-up">Turn Your Passions into Profit</h2><div class="features-grid"><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="100"><div class="card-content"><div class="feature-image-placeholder"><img src="https://res.cloudinary.com/db0fbc9ej/image/upload/v1753739894/IMG-20250728-WA0157_nctaqr.jpg" alt="People playing games on their phones"></div><div class="feature-content"><h3>Play Games, Win Real Money!</h3><p>Dive into thrilling games 24/7. Top up your wallet, play smart, and withdraw your cash rewards directly to your bank, instantly.</p></div></div></article><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="200"><div class="card-content"><div class="feature-image-placeholder"><img src="https://i.ibb.co/dwW1yP4W/image.png" alt="Social media interface with earnings"></div><div class="feature-content"><h3>Make Money on Social Media</h3><p>Turn your TikTok and Facebook content into daily income. Share videos, create duets, and engage to earn. Go viral and get paid!</p></div></div></article><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="300"><div class="card-content"><div class="feature-image-placeholder"><img src="https://i.ibb.co/S79hm7Cd/image.png" alt="Online marketplace showing products"></div><div class="feature-content"><h3>Sell on MiAmor Marketplace</h3><p>A trusted, peer-to-peer marketplace to buy and sell legal items without stress or middlemen. List your items for quick cash.</p></div></div></article></div></div></section>
+
+        <!-- Redesigned Pricing Section -->
+        <section id="pricing">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Choose Your Path to Success</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pricing-image"><img src="https://res.cloudinary.com/db0fbc9ej/image/upload/v1753739894/IMG-20250728-WA0147_gdpll0.jpg" alt="MiAmor Plus Plan"></div>
+                        <div class="pricing-card-content">
+                            <h3>MiAmor Plus</h3>
+                            <div class="price">₦10,000</div>
+                            <ul>
+                                <li>Instant Onboarding Gift: ₦8,000</li>
+                                <li>Referral/Connection Bonus: ₦9,100</li>
+                                <li>Daily Game Earnings: Up to ₦3,000</li>
+                                <li>TikTok/Facebook Video Bonus</li>
+                                <li>Love Hamper Reward: ₦5,000</li>
+                            </ul>
+                        </div>
+                        <a href="register.html" class="btn">Get Started</a>
+                    </div>
+                    <div class="pricing-card ultra" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pricing-image"><img src="https://res.cloudinary.com/db0fbc9ej/image/upload/v1753739894/IMG-20250728-WA0146_yyolzs.jpg" alt="MiAmor Ultra Plan"></div>
+                        <div class="pricing-card-content">
+                            <h3>MiAmor Ultra</h3>
+                            <div class="price">₦14,000</div>
+                            <ul>
+                                <li>Instant Onboarding Gift: ₦12,500</li>
+                                <li>Connection Referral Bonus: ₦12,500</li>
+                                <li>Daily Game Modules: Earn up to ₦5,000</li>
+                                <li>TikTok/Facebook Video Bonus</li>
+                                <li>Love Hamper Opening Bonus: ₦10,000</li>
+                            </ul>
+                        </div>
+                        <a href="register.html" class="btn">Choose Ultra</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Why Choose MiAmor?</h2>
+                <div class="why-choose-grid">
+                    <div class="why-choose-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <h3>We Are Secured</h3>
+                        <p>Your account is yours alone. Full control of your transactions and data, protected with top-tier security measures.</p>
+                    </div>
+                    <div class="why-choose-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3>We Deal in Dollars</h3>
+                        <p>Our main transaction is in USD, increasing pay rates. We easily convert to your local currency for seamless withdrawals.</p>
+                    </div>
+                    <div class="why-choose-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <h3>Easy Controls</h3>
+                        <p>Our user-friendly interface makes it simple for anyone to navigate the platform and access all features effortlessly.</p>
+                    </div>
+                     <div class="why-choose-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-stamp"></i>
+                        </div>
+                        <h3>Certified By Law</h3>
+                        <p>We are certified by the government with a CAC in every African country we operate in, ensuring a trustworthy platform.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+                <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How do I earn money on MiAmor?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>You can earn in multiple ways! Engage in daily activities, play skill-based games to win cash prizes, monetize your social media content on platforms like TikTok and Facebook through our system, and earn significant bonuses by referring friends to the community.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is MiAmor a dating app or an earning platform?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>It's both! MiAmor is a unique hybrid platform. Our primary goal is to help you build meaningful connections and find love, but we've integrated powerful earning features to empower you financially along your journey.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is my personal information and money safe?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. Security is our top priority. We use top-tier encryption and security protocols to protect your data and transactions. Your account and funds are secured, giving you full control and peace of mind.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What is the minimum withdrawal amount?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We believe in easy access to your earnings. Our withdrawal thresholds are kept low and are clearly stated within the app's payment section. Withdrawals are processed quickly and sent directly to your local bank account.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How do I get started with MiAmor?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Getting started is simple! Just click the "Register Now" or "Get Started" button, choose a plan that suits you, and complete the quick registration process. You'll receive an instant onboarding gift and can start earning and connecting immediately.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta-section">
+            <div class="container" data-aos="fade-up">
+                <div class="cta-box">
+                    <h2>Ready to Start Your Journey?</h2>
+                    <p>The first thing you do to register on Miamor is to buy an activation key. The amount you pay for the activation key is based on which package you want to go for, whether it’s Plus(₦10,000) or Ultra (₦14,000). The money you pay for the activation key automatically covers your registration fee. After getting the activation key you can then proceed to sign up on the platform.</p>
+                    <a href="merchant.html" class="btn">Get Your Activation Key -></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <ul class="footer-nav">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#vision">Our Vision</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#services">Services</a></li>
+            </ul>
+
+            <div class="footer-socials">
+                <p>Follow our social media handles</p>
+                <div class="social-icons">
+                    <a href="merchant.html" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="merchant.html" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="merchant.html" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <p><i class="fas fa-envelope"></i> <a href="merchant.html">support@miamor-platform.ng</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> 4923 Ryder Avenue, Nigeria, Africa.</p>
+            </div>
+            <p class="copyright">&copy; 2024 MiAmor. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true, offset: 50 });
+
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links li a');
+            const toggleNav = () => navLinks.classList.toggle('active');
+            const closeNav = () => navLinks.classList.remove('active');
+            hamburger.addEventListener('click', toggleNav);
+            navLinksItems.forEach(link => link.addEventListener('click', closeNav));
+
+            document.querySelectorAll('.interactive-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

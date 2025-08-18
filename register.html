@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MiAmor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #050816;
+            --surface-color: #0d1124;
+            --primary-color: #2962ff;
+            --secondary-color: #00d4ff;
+            --accent-pink: #e73c7e;
+            --text-color: #eaf2ff;
+            --text-muted: #a0a8c2;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevents horizontal scroll from aurora */
+            display: flex;
+            align-items: flex-start; /* Aligns form to top for scrollability */
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px; /* More vertical space */
+        }
+
+        /* --- AURORA BACKGROUND --- */
+        .aurora-bg {
+            position: fixed; /* Keep background fixed */
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; z-index: 0;
+        }
+        .aurora-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.3;
+        }
+        .aurora-shape.shape1 {
+            width: 500px; height: 500px;
+            background-color: var(--primary-color);
+            top: -10%; left: -15%;
+            animation: moveAurora1 15s alternate infinite ease-in-out;
+        }
+        .aurora-shape.shape2 {
+            width: 600px; height: 600px;
+            background-color: var(--secondary-color);
+            bottom: -20%; right: -20%;
+            animation: moveAurora2 20s alternate infinite ease-in-out;
+        }
+        .aurora-shape.shape3 {
+            width: 450px; height: 450px;
+            background-color: var(--accent-pink);
+            bottom: 20%; left: 20%;
+            opacity: 0.2;
+            animation: moveAurora3 18s alternate infinite ease-in-out;
+        }
+
+        @keyframes moveAurora1 { 0% { transform: translate(0, 0); } 100% { transform: translate(100px, 150px); } }
+        @keyframes moveAurora2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-150px, -100px); } }
+        @keyframes moveAurora3 { 0% { transform: translate(0, 0); } 100% { transform: translate(120px, -180px); } }
+
+        /* --- REGISTRATION CONTAINER --- */
+        .register-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 450px;
+            background: rgba(13, 17, 36, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .register-header .logo {
+             height: 80px; /* Increased logo size */
+             margin-bottom: 15px;
+        }
+        
+        .register-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .register-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.3);
+        }
+        
+        .key-helper {
+            margin-top: -10px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .key-helper p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .key-helper a {
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .key-helper a:hover {
+            text-decoration: underline;
+            color: var(--primary-color);
+        }
+
+        #password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        #password-toggle:hover {
+            color: var(--text-color);
+        }
+
+        .terms-text {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .terms-text .terms-highlight {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 52px;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
+            background: var(--gradient);
+            background-size: 200% auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.4);
+        }
+
+        .submit-btn:disabled {
+            cursor: not-allowed;
+            background-position: left center;
+            transform: translateY(0);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn .btn-loader {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .submit-btn.loading .btn-text {
+            visibility: hidden;
+        }
+
+        .submit-btn.loading .btn-loader {
+            display: block;
+            position: absolute;
+        }
+        
+        .bottom-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .bottom-link a {
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .bottom-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(13, 17, 36, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: var(--radius);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .modal-icon.failure {
+            color: #ff4d4d;
+        }
+
+        .modal-content h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .modal-content .btn {
+            display: inline-block; padding: 12px 30px;
+            color: #fff; text-decoration: none; border-radius: 10px;
+            font-weight: 600; transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;
+            cursor: pointer; background: var(--gradient);
+            background-size: 200% auto;
+        }
+        .modal-content .btn:hover {
+             background-position: right center;
+             transform: translateY(-3px);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .close-modal:hover {
+            color: var(--text-color);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="aurora-bg">
+        <div class="aurora-shape shape1"></div>
+        <div class="aurora-shape shape2"></div>
+        <div class="aurora-shape shape3"></div>
+    </div>
+
+    <div class="register-container">
+        <div class="register-header">
+            <a href="index.html"><img src="https://i.ibb.co/67K0XvbH/image.png" alt="MiAmor Logo" class="logo"></a>
+            <h1>Create Your Account</h1>
+            <p>Join our community and start earning!</p>
+        </div>
+        <form id="register-form">
+            <div class="form-group">
+                <input type="text" id="fullname" class="form-input" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" class="form-input" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="username" class="form-input" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="form-input" placeholder="Password" required>
+                <i class="fas fa-eye" id="password-toggle"></i>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="phone" class="form-input" placeholder="Phone" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="activation-key" class="form-input" placeholder="Activation Key" required>
+            </div>
+            <div class="key-helper">
+                <p>Don't have a key? <a href="merchant.html">Click here.</a></p>
+            </div>
+            <div class="terms-text">
+                <p>By signing up, you agree to our <span class="terms-highlight">Terms of Service</span>.</p>
+            </div>
+            <button type="submit" class="submit-btn">
+                <span class="btn-text">Create Account</span>
+                <span class="btn-loader"></span>
+            </button>
+        </form>
+        <div class="bottom-link">
+            <p>Already have an account? <a href="#">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Activation Key Modal -->
+    <div class="modal-overlay" id="activation-modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-icon failure"><i class="fas fa-times-circle"></i></div>
+            <h2>Registration Failed</h2>
+            <p>It seems there was an issue creating your account. This is often due to an invalid or already used Activation Key. Please double-check your key or get a new one to continue.</p>
+            <a href="merchant.html" class="btn">Get an Activation Key</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('password-toggle');
+            const registerForm = document.getElementById('register-form');
+            const activationModal = document.getElementById('activation-modal');
+            const closeModalButton = activationModal.querySelector('.close-modal');
+            
+            // 1. Password Visibility Toggle
+            if (passwordToggle && passwordInput) {
+                passwordToggle.addEventListener('click', () => {
+                    // Toggle the type attribute
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle the eye icon
+                    passwordToggle.classList.toggle('fa-eye');
+                    passwordToggle.classList.toggle('fa-eye-slash');
+                });
+            }
+
+            // 2. Form Submission Logic
+            if (registerForm && activationModal) {
+                const submitBtn = registerForm.querySelector('.submit-btn');
+                
+                registerForm.addEventListener('submit', (event) => {
+                    event.preventDefault(); // Prevent the form from actually submitting
+                    
+                    // Start loading animation
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+
+                    // Simulate a 3-second delay
+                    setTimeout(() => {
+                        // Stop loading animation
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+
+                        // Show the "Invalid Activation Key" modal
+                        activationModal.classList.add('active');
+                    }, 3000);
+                });
+            }
+
+            // 3. Modal Closing Logic
+            const closeModal = () => {
+                activationModal.classList.remove('active');
+            }
+
+            if (closeModalButton && activationModal) {
+                closeModalButton.addEventListener('click', closeModal);
+                
+                // Also close modal if the overlay is clicked
+                activationModal.addEventListener('click', (event) => {
+                    if (event.target === activationModal) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
