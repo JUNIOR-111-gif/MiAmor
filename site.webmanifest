@@ -1,0 +1,21 @@
+{
+  "name": "MiAmor - Connect, Earn, and Grow",
+  "short_name": "MiAmor",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "description": "The revolutionary platform combining relationship-building with entrepreneurship. Find love, earn income, and gain valuable skills.",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
