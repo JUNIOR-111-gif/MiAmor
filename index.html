@@ -522,14 +522,67 @@
             line-height: 1.6;
         }
 
+        /* --- NEW CERTIFICATION SECTION --- */
+        #certification {
+            background-color: var(--surface-color);
+            overflow: hidden;
+        }
+        .certification-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .certification-image {
+            flex: 1;
+            max-width: 500px;
+            perspective: 1000px;
+        }
+        .certification-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(41, 98, 255, 0.2);
+            transform: rotateY(10deg) rotateX(2deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .certification-image img:hover {
+            transform: rotateY(0) rotateX(0);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 60px rgba(41, 98, 255, 0.4);
+        }
+        .certification-content {
+            flex: 1.2;
+            max-width: 600px;
+        }
+        .certification-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: #fff;
+        }
+        .certification-content h2 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            font-size: 1.8rem;
+            margin-top: 5px;
+        }
+        .certification-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+
         /* --- FAQ SECTION --- */
-        #faq { background-color: var(--surface-color); }
+        #faq { background-color: var(--bg-color); }
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
         }
         .faq-item {
-            background: var(--bg-color);
+            background: var(--surface-color);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             margin-bottom: 15px;
@@ -754,6 +807,20 @@
         @media (max-width: 900px) {
             .pricing-grid { gap: 30px; }
             .pricing-card.ultra { transform: scale(1); box-shadow: -5px 0 30px rgba(41, 98, 255, 0.3); }
+            .certification-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            .certification-image img {
+                transform: rotateY(0) rotateX(0); /* Reset rotation on mobile */
+            }
+            .certification-content h2 {
+                font-size: 2.2rem;
+            }
+            .certification-content h2 span {
+                font-size: 1.6rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -1004,6 +1071,26 @@
             </div>
         </section>
 
+        <!-- Certification Section -->
+        <section id="certification">
+            <div class="container">
+                <div class="certification-container">
+                    <div class="certification-image" data-aos="fade-right">
+                        <img src="miamor-certificate.png" alt="A photo of the MiAmor Services official Certificate of Registration from the Federal Republic of Nigeria Corporate Affairs Commission.">
+                    </div>
+                    <div class="certification-content" data-aos="fade-left">
+                        <h2>Built on Trust & Legitimacy
+                            <span>Officially Certified by the CAC</span>
+                        </h2>
+                        <p>
+                            Your peace of mind is paramount. MiAmor is proudly registered and certified by the Corporate Affairs Commission (CAC) of Nigeria. This official government recognition is our promise of transparency, security, and a platform that operates with integrity. When you join MiAmor, you're partnering with a legitimate company you can trust.
+                        </p>
+                        <a href="register.html" class="btn">Join a Trusted Platform</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FAQ Section -->
         <section id="faq">
             <div class="container">
@@ -1034,6 +1121,15 @@
                         </button>
                         <div class="faq-answer">
                             <p>Absolutely. Security is our top priority. We use top-tier encryption and security protocols to protect your data and transactions. Your account and funds are secured, giving you full control and peace of mind.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is MiAmor legit?</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, MiAmor is 100% legitimate. We are officially registered with the Corporate Affairs Commission (CAC) of Nigeria, as shown by our government-issued certificate. This ensures we operate under strict legal standards, providing you with a secure and trustworthy platform for earning and connecting.</p>
                         </div>
                     </div>
                     <div class="faq-item">
