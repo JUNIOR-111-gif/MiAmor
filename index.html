@@ -1123,7 +1123,7 @@
                             <p>Absolutely. Security is our top priority. We use top-tier encryption and security protocols to protect your data and transactions. Your account and funds are secured, giving you full control and peace of mind.</p>
                         </div>
                     </div>
-                    <div class="faq-item" id="is-miamor-legit">
+                    <div class="faq-item">
                         <button class="faq-question">
                             <span>Is MiAmor legit?</span>
                             <i class="fas fa-plus"></i>
@@ -1249,15 +1249,14 @@
                 });
             });
 
-            // Handle deep link for FAQ
+            // Handle deep link for certification section
             const checkHash = () => {
                 if (window.location.hash === '#is-miamor-legit') {
-                    const targetElement = document.getElementById('is-miamor-legit');
+                    const targetElement = document.getElementById('certification');
                     if (targetElement) {
                         // A small delay helps ensure the scroll is smooth after page layout
                         setTimeout(() => {
                             targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            targetElement.classList.add('active');
                         }, 100);
                     }
                 }
