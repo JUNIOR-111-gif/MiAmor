@@ -134,6 +134,24 @@
             color: var(--text-muted);
             font-size: 0.95rem;
         }
+        
+        .error-bar {
+            background-color: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #f8d7da;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-bar a {
+            color: #fff;
+            font-weight: 600;
+            text-decoration: underline;
+        }
 
         .form-group {
             margin-bottom: 20px;
@@ -328,93 +346,6 @@
             text-decoration: underline;
         }
 
-        /* --- MODAL STYLES --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: rgba(13, 17, 36, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px 40px;
-            border-radius: var(--radius);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-        
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-        .modal-icon.failure {
-            color: #ff4d4d;
-        }
-
-        .modal-content h2 {
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-        
-        .modal-content p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-        }
-
-        .modal-content .btn {
-            display: inline-block; padding: 12px 30px;
-            color: #fff; text-decoration: none; border-radius: 10px;
-            font-weight: 600; transition: all 0.4s ease;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;
-            cursor: pointer; background: var(--gradient);
-            background-size: 200% auto;
-        }
-        .modal-content .btn:hover {
-             background-position: right center;
-             transform: translateY(-3px);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .close-modal:hover {
-            color: var(--text-color);
-        }
-
         @media (max-width: 480px) {
             body {
                 padding: 20px 15px;
@@ -448,10 +379,11 @@
 
     <div class="register-container">
         <div class="register-header">
-            <a href="index.html"><img src="https://i.ibb.co/67K0XvbH/image.png" alt="MiAmor Logo" class="logo"></a>
+            <a href="index.html"><img src="logo.png" alt="MiAmor Logo" class="logo"></a>
             <h1>Create Your Account</h1>
             <p>Join our community and start earning!</p>
         </div>
+        <div id="error-message" class="error-bar" style="display: none;"></div>
         <form id="register-form">
             <div class="form-group">
                 <input type="text" id="fullname" class="form-input" placeholder="Full Name" required>
@@ -507,24 +439,13 @@
         </div>
     </div>
 
-    <!-- Activation Key Modal -->
-    <div class="modal-overlay" id="activation-modal">
-        <div class="modal-content">
-            <button class="close-modal" aria-label="Close modal">&times;</button>
-            <div class="modal-icon failure"><i class="fas fa-times-circle"></i></div>
-            <h2>Registration Failed</h2>
-            <p>It seems there was an issue creating your account. This is often due to an invalid or already used Activation Key. Please double-check your key or get a new one to continue.</p>
-            <a href="merchant.html" class="btn">Get an Activation Key</a>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const passwordInput = document.getElementById('password');
             const passwordToggle = document.getElementById('password-toggle');
             const registerForm = document.getElementById('register-form');
-            const activationModal = document.getElementById('activation-modal');
-            const closeModalButton = activationModal.querySelector('.close-modal');
+            const errorMessage = document.getElementById('error-message');
+            const allInputs = registerForm.querySelectorAll('.form-input, .package-option input');
 
             // Package Selector Logic
             const packageOptions = document.querySelectorAll('.package-option');
@@ -548,55 +469,53 @@
                 initiallyCheckedRadio.closest('.package-option').classList.add('selected');
             }
             
-            // 1. Password Visibility Toggle
+            // Password Visibility Toggle
             if (passwordToggle && passwordInput) {
                 passwordToggle.addEventListener('click', () => {
-                    // Toggle the type attribute
                     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                     passwordInput.setAttribute('type', type);
-                    
-                    // Toggle the eye icon
                     passwordToggle.classList.toggle('fa-eye');
                     passwordToggle.classList.toggle('fa-eye-slash');
                 });
             }
 
-            // 2. Form Submission Logic
-            if (registerForm && activationModal) {
+            // Function to hide the error message
+            const hideError = () => {
+                if (errorMessage.style.display !== 'none') {
+                    errorMessage.style.display = 'none';
+                }
+            };
+
+            // Hide error when user starts typing/changing form
+            allInputs.forEach(input => {
+                input.addEventListener('input', hideError);
+                input.addEventListener('change', hideError);
+            });
+
+            // Form Submission Logic
+            if (registerForm) {
                 const submitBtn = registerForm.querySelector('.submit-btn');
                 
                 registerForm.addEventListener('submit', (event) => {
-                    event.preventDefault(); // Prevent the form from actually submitting
+                    event.preventDefault();
                     
-                    // Start loading animation
+                    hideError();
+
                     submitBtn.classList.add('loading');
                     submitBtn.disabled = true;
 
-                    // Simulate a 3-second delay
+                    // Simulate API call delay
                     setTimeout(() => {
-                        // Stop loading animation
                         submitBtn.classList.remove('loading');
                         submitBtn.disabled = false;
 
-                        // Show the "Invalid Activation Key" modal
-                        activationModal.classList.add('active');
+                        // Show the inline error message
+                        errorMessage.innerHTML = 'Invalid activation key. Please double check your key or <a href="merchant.html">Buy a new key here</a>.';
+                        errorMessage.style.display = 'block';
+
+                        // Scroll the error message into view for better visibility
+                        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 3000);
-                });
-            }
-
-            // 3. Modal Closing Logic
-            const closeModal = () => {
-                activationModal.classList.remove('active');
-            }
-
-            if (closeModalButton && activationModal) {
-                closeModalButton.addEventListener('click', closeModal);
-                
-                // Also close modal if the overlay is clicked
-                activationModal.addEventListener('click', (event) => {
-                    if (event.target === activationModal) {
-                        closeModal();
-                    }
                 });
             }
         });

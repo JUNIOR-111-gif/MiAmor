@@ -862,7 +862,7 @@
 <body>
     <header class="header">
         <nav class="container navbar">
-            <a href="index.html" class="logo"><img src="https://i.ibb.co/67K0XvbH/image.png" alt="MiAmor Logo"></a>
+            <a href="index.html" class="logo"><img src="logo.png" alt="MiAmor Logo"></a>
             <div class="nav-container-right">
                 <div class="nav-menu">
                     <ul class="nav-links">
@@ -914,7 +914,7 @@
                     <div class="phone-mockup">
                         <div class="phone-screen">
                             <div class="app-header">
-                                <div class="app-logo"><img src="https://i.ibb.co/67K0XvbH/image.png" alt="MiAmor App Logo"></div>
+                                <div class="app-logo"><img src="logo.png" alt="MiAmor App Logo"></div>
                                 <div class="app-profile-icon"><i class="fas fa-user"></i></div>
                             </div>
                             <div class="app-balance-area">
@@ -993,7 +993,7 @@
             </div>
         </section>
         <section id="vision"><div class="container"><h2 class="section-title" data-aos="fade-up"> The Code Behind The Vision <span>What We Stand For</span> </h2><div class="vision-grid"><div class="vision-card interactive-card" data-aos="fade-up" data-aos-delay="100"><div class="card-content"><div class="icon"><i class="fas fa-hand-holding-dollar"></i></div><h3>Empowerment & Earning</h3><p>We provide tangible opportunities to turn your daily digital activities—from gaming to social media—into real income and company ownership.</p></div></div><div class="vision-card interactive-card" data-aos="fade-up" data-aos-delay="200"><div class="card-content"><div class="icon"><i class="fas fa-heart"></i></div><h3>Meaningful Connections</h3><p>Beyond finance, our core is community. MiAmor is a space to find love, build lasting relationships, and connect with a supportive network.</p></div></div><div class="vision-card interactive-card" data-aos="fade-up" data-aos-delay="300"><div class="card-content"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3>Skill Development</h3><p>We believe in growth. Through creative courses and strategic games, we empower users with valuable skills for the modern world.</p></div></div></div></div></section>
-        <section id="features"><div class="container"><h2 class="section-title" data-aos="fade-up">Turn Your Passions into Profit</h2><div class="features-grid"><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="100"><div class="card-content"><div class="feature-image-placeholder"><img src="https://res.cloudinary.com/db0fbc9ej/image/upload/v1753739894/IMG-20250728-WA0157_nctaqr.jpg" alt="People playing games on their phones"></div><div class="feature-content"><h3>Play Games, Win Real Money!</h3><p>Dive into thrilling games 24/7. Top up your wallet, play smart, and withdraw your cash rewards directly to your bank, instantly.</p></div></div></article><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="200"><div class="card-content"><div class="feature-image-placeholder"><img src="https://i.ibb.co/dwW1yP4W/image.png" alt="Social media interface with earnings"></div><div class="feature-content"><h3>Make Money on Social Media</h3><p>Turn your TikTok and Facebook content into daily income. Share videos, create duets, and engage to earn. Go viral and get paid!</p></div></div></article><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="300"><div class="card-content"><div class="feature-image-placeholder"><img src="https://i.ibb.co/S79hm7Cd/image.png" alt="Online marketplace showing products"></div><div class="feature-content"><h3>Sell on MiAmor Marketplace</h3><p>A trusted, peer-to-peer marketplace to buy and sell legal items without stress or middlemen. List your items for quick cash.</p></div></div></article></div></div></section>
+        <section id="features"><div class="container"><h2 class="section-title" data-aos="fade-up">Turn Your Passions into Profit</h2><div class="features-grid"><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="100"><div class="card-content"><div class="feature-image-placeholder"><img src="https://res.cloudinary.com/db0fbc9ej/image/upload/v1753739894/IMG-20250728-WA0157_nctaqr.jpg" alt="People playing games on their phones"></div><div class="feature-content"><h3>Play Games, Win Real Money!</h3><p>Dive into thrilling games 24/7. Top up your wallet, play smart, and withdraw your cash rewards directly to your bank, instantly.</p></div></div></article><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="200"><div class="card-content"><div class="feature-image-placeholder"><img src="social-media.jpg" alt="Social media interface with earnings"></div><div class="feature-content"><h3>Make Money on Social Media</h3><p>Turn your TikTok and Facebook content into daily income. Share videos, create duets, and engage to earn. Go viral and get paid!</p></div></div></article><article class="feature-card interactive-card" data-aos="fade-up" data-aos-delay="300"><div class="card-content"><div class="feature-image-placeholder"><img src="marketplace.jpg" alt="Online marketplace showing products"></div><div class="feature-content"><h3>Sell on MiAmor Marketplace</h3><p>A trusted, peer-to-peer marketplace to buy and sell legal items without stress or middlemen. List your items for quick cash.</p></div></div></article></div></div></section>
 
         <!-- Redesigned Pricing Section -->
         <section id="pricing">
@@ -1123,7 +1123,7 @@
                             <p>Absolutely. Security is our top priority. We use top-tier encryption and security protocols to protect your data and transactions. Your account and funds are secured, giving you full control and peace of mind.</p>
                         </div>
                     </div>
-                    <div class="faq-item">
+                    <div class="faq-item" id="is-miamor-legit">
                         <button class="faq-question">
                             <span>Is MiAmor legit?</span>
                             <i class="fas fa-plus"></i>
@@ -1248,6 +1248,21 @@
                     item.classList.toggle('active');
                 });
             });
+
+            // Handle deep link for FAQ
+            const checkHash = () => {
+                if (window.location.hash === '#is-miamor-legit') {
+                    const targetElement = document.getElementById('is-miamor-legit');
+                    if (targetElement) {
+                        // A small delay helps ensure the scroll is smooth after page layout
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            targetElement.classList.add('active');
+                        }, 100);
+                    }
+                }
+            };
+            checkHash(); // Run on page load
         });
     </script>
 </body>
